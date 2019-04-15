@@ -1,0 +1,63 @@
+.bg-color{
+    background-color: #4B409A;
+
+}
+
+.navbar{
+	border-radius: 0;
+	margin-bottom: 0px;
+}
+
+.navbar-header .navbar-brand{
+	color: white;
+	font-weight: bold;
+}
+
+.middle-portion{
+    
+	background-color: #e9e9e9;
+    padding-right:4px;
+    padding-left: 4px; 
+	height: 250px;
+}
+
+.text-field{
+	border:none;
+	outline:none;
+	
+	overflow: hidden;
+	border-radius: 5px;
+
+
+}
+
+.btn{
+	margin-top: 3px;
+	width: 85px;
+}
+
+.contents{
+   border-radius: 5px;
+   background-color: grey;
+   list-style-type: none;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   padding: 20px;
+   color: white;
+
+}
+
+.heading{
+    text-align: center;
+}
+
+.status{
+	text-align:center;
+	padding-top:5px;
+	font-weight:bold;
+	color:grey;
+}
+
+.blocks ul{
+	padding-left: 0;
+}

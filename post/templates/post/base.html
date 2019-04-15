@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Facebook Post</title>
+	{% load static %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'post/style.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+</head>
+<body>
+    
+   	<nav class="navbar navbar-default bg-color">
+   		<div class="navbar-header">
+   			<a href="#" class="navbar-brand">POSTBOOK</a>
+   		</div>
+    		
+   	</nav>
+    
+    <div class="container ">
+    	<div class="row">
+    		<div class="col-md-6 col-xs-12 col-md-offset-3">
+    			<div class="middle-portion">
+	    			<p class="status">Type any status here!</p>
+			    	<form id="myform" action="{% url 'create_post' %}"  method="POST">
+			    	{% csrf_token %}
+			    	    <div class="form-group">
+  				    	    <textarea rows="5" class="form-control textfield" name="content">
+  				    	    	
+  				    	    </textarea>	
+                   
+                    <input type="submit" class="btn btn-primary postbutton pull-right" value="Post">
+	              </div>
+			    		
+			    	</form>
+			    	<br>
+			    	<br>
+			    	<h3 class="heading">All of the Posts are here!</h3>
+		    	</div>
+
+		    	<div class="blocks">
+            <ul class="hello">
+		    		{% include 'post/index.html' %}
+            </ul>
+  
+             
+		    	</div>
+          <button class="load-more-btn btn btn-primary" data-page="2">Load more</button>
+          <div id="message">
+            
+          </div>
+
+		    </div>
+
+    	</div>
+    </div>
+   
+    <script>
+     
+    	$(document).ready(function(){
+            var value = $('.contents').length;
+            $(".load-more-btn").hide();
+            if(value % 5 == 0 && value !=0 ){
+                $(".load-more-btn").show();
+            }
+
+           $("#myform").submit(function(e){
+            var value = $('.contents').length;
+            var page = $('.load-more-btn').data("page");
+            var check = value * page;
+            
+            e.preventDefault();
+            $.ajax(
+              { type: $(this).attr('method'),
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success:function (response){
+                $('.textfield').val(' ');
+                if(response.status == true ){
+                  
+                  $(".hello").prepend("<div class='contents'><li>"+response.content+"</li></div>");
+                   
+                   if(check % 5 == 0 && check !=0){
+                    
+                    $(".load-more-btn").show();
+                    $(".contents:last-child").remove();
+                    
+                   }else{
+                      
+                      $(".load-more-btn").hide();
+                   }
+
+
+                
+                }
+                },
+                error: function(data){
+                   $("#message").html("Something went wrong!");
+                }
+             });
+            
+           });
+                   
+            $(".load-more-btn").on('click',function(){
+                       
+                $this = $(this);
+                page = $(this).data("page");
+                $.ajax({
+                    type: "GET",
+                    url:  "{% url 'home' %}",
+                    data:{
+                        'page': page
+                    },
+                    success:function (response){
+                        $('.hello').append(response['content'])
+                        $this.data('page', response['next_page'])
+                        if(!response['has_next']){
+                            $this.hide();  
+                        }
+                         
+                    },
+                      error: function(data){
+                        $("#message").html("Something went wrong!");
+                      }
+                    });
+                       return false;
+                   });
+               
+
+                  
+         
+              
+                
+              });
+
+
+
+            
+              
+
+
+
+
+     
+
+    </script>
+    
+ 
+</body>
+</html>
