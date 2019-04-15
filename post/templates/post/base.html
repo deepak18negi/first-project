@@ -63,7 +63,7 @@
             $(".load-more-btn").hide();
             if(value % 5 == 0 && value != 0 ){
                 $(".load-more-btn").show();
-            }
+              }
 
            $("#myform").submit(function(e){
             var value = $('.contents').length;
@@ -78,11 +78,9 @@
                 success:function (response){
                 $('.textfield').val(' ');
                 if(response.status == true ){
-                  
                   $(".hello").prepend("<div class='contents'><li>"+response.content+"</li></div>");
-                   
+
                    if(check % 5 == 0 && check !=0 && check !=90 ){
-                    
                     $(".load-more-btn").show();
                     $(".contents:last-child").remove();
                     
@@ -113,8 +111,8 @@
                         'page': page
                     },
                     success:function (response){
-                        $('.hello').append(response['content'])
-                        $this.data('page', response['next_page'])
+                        $('.hello').append(response['content']);
+                        $this.data('page', response['next_page']);
                         if(!response['has_next']){
                             $this.hide();  
                         }
