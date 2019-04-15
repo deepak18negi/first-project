@@ -61,7 +61,7 @@
     	$(document).ready(function(){
             var value = $('.contents').length;
             $(".load-more-btn").hide();
-            if(value % 5 == 0 && value !=0 ){
+            if(value % 5 == 0 && value != 0 ){
                 $(".load-more-btn").show();
             }
 
@@ -81,7 +81,7 @@
                   
                   $(".hello").prepend("<div class='contents'><li>"+response.content+"</li></div>");
                    
-                   if(check % 5 == 0 && check !=0){
+                   if(check % 5 == 0 && check !=0 && check !=90 ){
                     
                     $(".load-more-btn").show();
                     $(".contents:last-child").remove();
