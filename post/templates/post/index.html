@@ -1,7 +1,30 @@
+{% extends 'post/base.html' %}
 {% load static %}
+{% block content %}
+           <div class="middle-portion">
+	    		<p class="status">Type any status here!</p>
+			    <form id="myform" action="{% url 'create_post' %}"  method="POST">
+			    {% csrf_token %}
+			    	<div class="form-group">
+  				    	<textarea rows="5" class="form-control textfield" name="content">
+  				    	    	
+  				    	</textarea>	
+                   
+                        <input type="submit" class="btn btn-primary postbutton pull-right" value="Post">
+	                </div>
+			    		
+			    	</form>
+			    	<br>
+			    	<br>
+			    	<h3 class="heading">All of the Posts are here!</h3>
+		    </div>
 
-{% for item in posts %}	
-	<div class="contents">
-		<li>{{ item.content }}</li>
-	</div>
-{% endfor %}
+		    <div class="blocks">
+		        <ul class="hello">
+				    {% include 'post/cont.html' %}		  
+		            
+		        </ul>
+  
+            </div>
+            <button class="load-more-btn btn btn-primary" data-page="2">Load more</button>
+{% endblock content %}

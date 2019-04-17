@@ -21,20 +21,11 @@
 	height: 250px;
 }
 
-.text-field{
-	border:none;
-	outline:none;
-	
-	overflow: hidden;
-	border-radius: 5px;
-
-
+textarea.form-control{
+	resize:none;
+	margin-bottom: 10px;
 }
 
-.btn{
-	margin-top: 3px;
-	width: 85px;
-}
 
 .contents{
    border-radius: 5px;
@@ -60,4 +51,30 @@
 
 .blocks ul{
 	padding-left: 0;
+}
+
+.border-top{
+	border-top: 1px solid #E4E4E4;
+
+}
+
+.navbar-default .navbar-nav li a{
+	color: white;
+}
+
+.navbar-default .navbar-nav li:hover{
+	
+	background-color: #2ca6e4;
+}
+
+.navbar-default .navbar-nav li a:hover{
+	color: white;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
 }

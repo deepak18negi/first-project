@@ -1,0 +1,16 @@
+{% extends 'post/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div>
+     <div class="content-section">
+     	     
+        <h3>You have been logged out successfully!</h3>
+        <p>
+            <a href="{% url 'login' %}">Log In</a>
+        </p>
+     	
+     	
+     </div>
+  </div> 
+{% endblock content %}

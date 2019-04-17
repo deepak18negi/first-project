@@ -1,0 +1,10 @@
+{% load static %}
+
+   {% for item in posts %} 
+
+        <div class="contents">
+        	<li>Posted By: {{ item.name.get_full_name }}</t>
+            <li>{{ item.content }}</li>
+
+        </div>
+    {% endfor %}
