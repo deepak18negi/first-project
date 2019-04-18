@@ -5,10 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.core.paginator import Paginator
-from django.core import serializers
 from django.http import HttpResponse
 
 from post.models import Post
+from post.forms import PostForm
 
 
 @login_required
@@ -18,6 +18,7 @@ def home(request):
     when the ajax request is received, each page will be assigned with variable posts and 
     each posts will be assigned with content variable which will be looped in index.html.
     """
+    p_form = PostForm(request.POST, request.FILES)
     post_list = Post.objects.order_by('-pub_date')
     paginator = Paginator(post_list, 5)
     if request.is_ajax():
@@ -34,26 +35,20 @@ def home(request):
                             )
     else:
         posts = paginator.get_page(1)
-        return render(request, 'post/index.html', {'posts': posts})
+        p_form = PostForm()
+        return render(request, 'post/index.html', {'posts': posts, 'p_form': p_form})
 
 
 @login_required
 def create_post(request):
-    """
-    When the user clicks the post button, with the contents in the textfield,
-    input gets stored in the content variable and saved in the database.
-    and send the response dictionary in JSON fromat.
-    """
-    posts = Post.objects.order_by('-pub_date')[:1]
-    response = {"status": False}
-    content = request.POST.get('content')
-    if content:
-        post = Post()
-        post.content = content
-        post.name = request.user
-        post.save()
-        context = render_to_string('post/cont.html', {'posts': posts})
-        response = {"status": True, "content": content, 'context': context}
-    return HttpResponse(json.dumps(response),
-                        content_type="application/json"
-                        )
+    if request.method == 'POST':
+        response = {"status": False}
+        p_form = PostForm(request.POST, request.FILES)
+        if p_form.is_valid():
+            p_form.save()
+            posts = Post.objects.order_by('-pub_date')[:1]
+            context = render_to_string('post/cont.html', {'posts': posts})
+            response = {"status": True,
+                        "context": context}
+            return HttpResponse(json.dumps(response),
+                                content_type="aplication/json")
